@@ -7,7 +7,7 @@
                       Loading....
                  </div>
                 <div class="card-bottom" v-else>
-                    <button @click="login()">Connexion</button>
+                    <button @click="login()">Login</button>
                 </div>
                 <div class="error_login" v-if="permissionError" >
                     vous n'avez pas la permission d'accéder à cette page
@@ -20,9 +20,13 @@
 <script>
 export default {
   name: 'home',
-  components: {
-    
-  }
+  data() {
+    return {
+      login : false,
+      permissionError : false,
+    }
+  },
+
 }
 </script>
 
