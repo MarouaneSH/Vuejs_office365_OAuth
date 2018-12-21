@@ -4,9 +4,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {VueAuthenticate} from 'vue-authenticate'
 
-Vue.use(VueAxios, axios)
-Vue.use(Vuex)
 
+Vue.use(VueAxios, axios)
 
 const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
   baseUrl: 'http://localhost:8000', // Your API domain
@@ -23,20 +22,44 @@ const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
   }
 })
 
+
+Vue.use(Vuex)
+
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || '',
     isAuthenthicated : false,
+    user : null,
   },
   getters : {
     isAuthenticated() {
       return vueAuth.isAuthenticated()
+    },
+    user(state) {
+      return state.user;
     }
   },
   mutations: {
-
+    add_token(state , token) {
+      localStorage.setItem("token",token);
+      state.token = token;
+    },
+    isAuthenticated(state, payload) {
+      state.isAuthenticated = payload;
+    },
+    set_user(state, user) {
+      state.user = user;
+    }
+    
   },
   actions: {
-
+      login() {
+       
+         return new Promise((resolve) => {
+              vueAuth.authenticate("live").then((response)=>{
+                  resolve(response.data);
+              })
+         })
+      }
   }
 })
