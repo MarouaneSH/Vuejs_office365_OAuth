@@ -12,7 +12,7 @@ const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
   
   providers: {
     live: {
-      clientId: '00970931-21bf-46bc-9be9-f460d43fb6b7',
+      clientId: '', // change with your Microsoft office Client ID
       redirectUri: 'http://localhost:8080' ,// Your client app URL
       authorizationEndpoint : "https://login.microsoftonline.com/common/oauth2/v2.0/authorize/",
       scope: ["openid","profile","offline_access","User.Read"],
